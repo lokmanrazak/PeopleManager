@@ -5,7 +5,12 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "people")
-// Add @NamedQueries
+@NamedQueries({
+        @NamedQuery(
+                name = "Person.listPeople",
+                query = "SELECT * FROM people"
+        )
+})
 public class Person {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

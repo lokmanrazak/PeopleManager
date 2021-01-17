@@ -18,6 +18,6 @@ public class PersonDAO extends AbstractDAO<Person> {
 
     @SuppressWarnings("unchecked")
     public List<Person> listPeople() {
-        return list((Query<Person>) namedQuery("Person.listPeople"));
+        return list((Query<Person>) namedQuery("com.lokmanrazak.peoplemanager.models.Person.listPeople"));
     }
 }

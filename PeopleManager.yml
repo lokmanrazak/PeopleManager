@@ -6,3 +6,6 @@ database:
   # the JDBC URL
   url: jdbc:sqlite:PeopleManager.db
 
+  # any properties specific to your JDBC driver
+  properties:
+    hibernate.dialect: org.hibernate.dialect.SQLiteDialect

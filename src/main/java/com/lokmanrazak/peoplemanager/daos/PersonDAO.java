@@ -12,12 +12,28 @@ public class PersonDAO extends AbstractDAO<Person> {
         super(factory);
     }
 
-    public Person create(Person person) {
+    public Person findById(long id) {
+        return currentSession().get(Person.class, id);
+    }
+
+    public Person insert(Person person) {
         return persist(person);
     }
 
+    public void update(Person person) {
+        currentSession().update(person);
+    }
+
+    public void delete(Person person) {
+        currentSession().delete(person);
+    }
+
     @SuppressWarnings("unchecked")
-    public List<Person> listPeople() {
-        return list((Query<Person>) namedQuery("com.lokmanrazak.peoplemanager.models.Person.listPeople"));
+    public List<Person> findAll() {
+        return list((Query<Person>) namedQuery("Person.listPeople"));
+    }
+
+    public long count() {
+        return (Long) namedQuery("Person.countPeople").uniqueResult();
     }
 }

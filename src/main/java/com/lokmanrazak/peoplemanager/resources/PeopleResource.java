@@ -5,10 +5,7 @@ import com.lokmanrazak.peoplemanager.models.Person;
 import io.dropwizard.hibernate.UnitOfWork;
 
 import javax.validation.Valid;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
 
@@ -24,14 +21,35 @@ public class PeopleResource {
 
     @POST
     @UnitOfWork
-    public Person createPerson(@Valid Person person) {
-        return personDAO.create(person);
+    public Person add(@Valid Person person) {
+        return personDAO.insert(person);
+    }
+
+    @PUT
+    @UnitOfWork
+    public Person update(@Valid Person person) {
+        personDAO.update(person);
+
+        return person;
+    }
+
+    @DELETE
+    @Path("/{id}")
+    @UnitOfWork
+    public void delete(@PathParam("id") long id) {
+        personDAO.delete(personDAO.findById(id));
     }
 
     @GET
-    @Path("/list")
     @UnitOfWork
-    public List<Person> listPeople() {
-        return personDAO.listPeople();
+    public List<Person> findAll() {
+        return personDAO.findAll();
+    }
+
+    @GET
+    @Path("/count")
+    @UnitOfWork
+    public long count() {
+        return personDAO.count();
     }
 }

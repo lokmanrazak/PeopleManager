@@ -7,8 +7,12 @@ import java.util.Objects;
 @Table(name = "people")
 @NamedQueries({
         @NamedQuery(
-                name = "com.lokmanrazak.peoplemanager.models.Person.listPeople",
+                name = "Person.listPeople",
                 query = "SELECT p FROM Person p"
+        ),
+        @NamedQuery(
+                name = "Person.countPeople",
+                query = "SELECT COUNT(p) FROM Person p"
         )
 })
 public class Person {

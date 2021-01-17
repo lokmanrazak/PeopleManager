@@ -1,5 +1,8 @@
 # Database settings
 database:
+  # the name of your JDBC driver
+  driverClass: org.sqlite.JDBC
 
-  # URL
-  url: /db
+  # the JDBC URL
+  url: jdbc:sqlite:PeopleManager.db
+

@@ -7,8 +7,8 @@ import java.util.Objects;
 @Table(name = "people")
 @NamedQueries({
         @NamedQuery(
-                name = "Person.listPeople",
-                query = "SELECT * FROM people"
+                name = "com.lokmanrazak.peoplemanager.models.Person.listPeople",
+                query = "SELECT p FROM Person p"
         )
 })
 public class Person {

@@ -1,5 +1,7 @@
 package com.lokmanrazak.peoplemanager.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.util.Objects;
 
@@ -19,9 +21,10 @@ public class Address {
     @Column(name = "state", nullable = false)
     private String state;
 
-    @Column(name = "postalCode", nullable = false)
+    @Column(name = "postal_code", nullable = false)
     private String postalCode;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "people_id")
     private Person person;

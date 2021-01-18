@@ -1,8 +1,11 @@
 package com.lokmanrazak.peoplemanager.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 @Entity
 @Table(name = "people")
@@ -27,8 +30,12 @@ public class Person {
     @Column(name = "last_name", nullable = false)
     private String lastName;
 
-    @OneToMany(mappedBy = "person")
-    private Set<Address> addresses;
+    @JsonManagedReference
+    @OneToMany(
+            mappedBy = "person",
+            cascade = CascadeType.MERGE
+    )
+    private List<Address> addresses = new ArrayList<>();
 
     public Person() {
     }
@@ -62,12 +69,22 @@ public class Person {
         this.lastName = lastName;
     }
 
-    public Set<Address> getAddresses() {
+    public List<Address> getAddresses() {
         return addresses;
     }
 
-    public void setAddresses(Set<Address> addresses) {
+    public void setAddresses(List<Address> addresses) {
         this.addresses = addresses;
+    }
+
+    public void addAddress(Address address) {
+        addresses.add(address);
+        address.setPerson(this);
+    }
+
+    public void removeAddress(Address address) {
+        addresses.remove(address);
+        address.setPerson(null);
     }
 
     @Override

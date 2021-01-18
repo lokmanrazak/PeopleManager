@@ -2,6 +2,7 @@ package com.lokmanrazak.peoplemanager;
 
 import com.lokmanrazak.peoplemanager.daos.AddressDAO;
 import com.lokmanrazak.peoplemanager.daos.PersonDAO;
+import com.lokmanrazak.peoplemanager.models.Address;
 import com.lokmanrazak.peoplemanager.models.Person;
 import com.lokmanrazak.peoplemanager.resources.AddressResource;
 import com.lokmanrazak.peoplemanager.resources.PeopleResource;
@@ -18,7 +19,7 @@ public class PeopleManagerApplication extends Application<PeopleManagerConfigura
     }
 
     private final HibernateBundle<PeopleManagerConfiguration> hibernateBundle =
-            new HibernateBundle<>(Person.class) {
+            new HibernateBundle<>(Person.class, Address.class) {
                 @Override
                 public PooledDataSourceFactory getDataSourceFactory(PeopleManagerConfiguration configuration) {
                     return configuration.getDataSourceFactory();

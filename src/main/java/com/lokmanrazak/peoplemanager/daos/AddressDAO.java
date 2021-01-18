@@ -23,7 +23,7 @@ public class AddressDAO extends AbstractDAO<Address> {
     }
 
     public void update(Address address) {
-        currentSession().update(address);
+        currentSession().merge(address);
     }
 
     public void delete(Address address) {

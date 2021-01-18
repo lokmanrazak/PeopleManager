@@ -2,6 +2,7 @@ package models;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.lokmanrazak.peoplemanager.models.Address;
 import com.lokmanrazak.peoplemanager.models.Person;
 import io.dropwizard.jackson.Jackson;
 import org.junit.jupiter.api.Test;
@@ -19,5 +20,12 @@ public class PersonTest {
         String result = MAPPER.writeValueAsString(MAPPER.readValue(fixture("jsons/person.json"), Person.class));
 
         assertThat(MAPPER.writeValueAsString(person)).isEqualTo(result);
+    }
+
+    @org.junit.Test
+    public void deserializeFromJson() throws JsonProcessingException {
+        Person person = new Person("David", "Green");
+
+        assertThat(MAPPER.readValue(fixture("jsons/person.json"), Person.class)).isEqualTo(person);
     }
 }

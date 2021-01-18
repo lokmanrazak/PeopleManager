@@ -20,4 +20,11 @@ public class AddressTest {
 
         assertThat(MAPPER.writeValueAsString(address)).isEqualTo(result);
     }
+
+    @Test
+    public void deserializeFromJson() throws JsonProcessingException {
+        Address address = new Address("Main Street", "Dublin City", "Dublin", "D1");
+
+        assertThat(MAPPER.readValue(fixture("jsons/address.json"), Address.class)).isEqualTo(address);
+    }
 }

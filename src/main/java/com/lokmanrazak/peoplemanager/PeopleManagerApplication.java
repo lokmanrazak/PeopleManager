@@ -1,13 +1,16 @@
 package com.lokmanrazak.peoplemanager;
 
+import com.lokmanrazak.peoplemanager.daos.AddressDAO;
 import com.lokmanrazak.peoplemanager.daos.PersonDAO;
 import com.lokmanrazak.peoplemanager.models.Person;
+import com.lokmanrazak.peoplemanager.resources.AddressResource;
 import com.lokmanrazak.peoplemanager.resources.PeopleResource;
 import io.dropwizard.Application;
 import io.dropwizard.db.PooledDataSourceFactory;
 import io.dropwizard.hibernate.HibernateBundle;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
+import org.hibernate.SessionFactory;
 
 public class PeopleManagerApplication extends Application<PeopleManagerConfiguration> {
     public static void main(String[] args) throws Exception {
@@ -29,8 +32,11 @@ public class PeopleManagerApplication extends Application<PeopleManagerConfigura
 
     @Override
     public void run(PeopleManagerConfiguration peopleManagerConfiguration, Environment environment) {
-        final PersonDAO dao = new PersonDAO(hibernateBundle.getSessionFactory());
+        SessionFactory sessionFactory = hibernateBundle.getSessionFactory();
+        final PersonDAO personDAO = new PersonDAO(sessionFactory);
+        final AddressDAO addressDAO = new AddressDAO(sessionFactory);
 
-        environment.jersey().register(new PeopleResource(dao));
+        environment.jersey().register(new PeopleResource(personDAO));
+        environment.jersey().register(new AddressResource(addressDAO, personDAO));
     }
 }

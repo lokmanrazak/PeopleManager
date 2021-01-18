@@ -2,6 +2,7 @@ package com.lokmanrazak.peoplemanager.models;
 
 import javax.persistence.*;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "people")
@@ -25,6 +26,9 @@ public class Person {
 
     @Column(name = "last_name", nullable = false)
     private String lastName;
+
+    @OneToMany(mappedBy = "person")
+    private Set<Address> addresses;
 
     public Person() {
     }
@@ -58,6 +62,14 @@ public class Person {
         this.lastName = lastName;
     }
 
+    public Set<Address> getAddresses() {
+        return addresses;
+    }
+
+    public void setAddresses(Set<Address> addresses) {
+        this.addresses = addresses;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -72,11 +84,12 @@ public class Person {
 
         return id == person.id &&
                 firstName.equals(person.firstName) &&
-                lastName.equals(person.lastName);
+                lastName.equals(person.lastName) &&
+                Objects.equals(addresses, person.addresses);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstName, lastName);
+        return Objects.hash(id, firstName, lastName, addresses);
     }
 }
